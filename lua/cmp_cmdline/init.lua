@@ -226,12 +226,12 @@ source.complete = function(self, params, callback)
   end
 
   -- `vim.fn.getcompletion` does not handle fuzzy matches. So, we must return all items, including items that were matched in the previous input.
-  local should_merge_previous_items = false
   if #params.context.cursor_before_line > #self.before_line then
     should_merge_previous_items = string.find(params.context.cursor_before_line, self.before_line, 1, true) == 1
   elseif #params.context.cursor_before_line < #self.before_line then
     should_merge_previous_items = string.find(self.before_line, params.context.cursor_before_line, 1, true) == 1
   end
+  local should_merge_previous_items = false
 
   if should_merge_previous_items and self.offset == offset and self.ctype == ctype then
     for _, item in ipairs(self.items) do
